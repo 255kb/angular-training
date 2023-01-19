@@ -1,0 +1,8 @@
+<ng-container *ngIf="task">
+  <li [ngStyle]="{ 'text-decoration': task.done ? 'line-through' : '' }">
+    {{ task.title | titlecase }} - {{ task.desc | titlecase }} -
+    {{ task.date | date: 'dd MMM YYYY' }}
+    <button type="button" (click)="markAsDone()">✅</button>
+    <button type="button" (click)="deleteTask()">❌</button>
+  </li>
+</ng-container>

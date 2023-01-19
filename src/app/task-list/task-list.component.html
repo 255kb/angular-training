@@ -1,0 +1,12 @@
+<ng-container *ngIf="taskList$ | async as taskList">
+  <ul *ngIf="taskList.length; else emptyList">
+    <app-task-item
+      *ngFor="let task of taskList; let i = index"
+      [task]="task"
+      [index]="i"
+      (delete)="deleteTask($event)"
+    ></app-task-item>
+  </ul>
+</ng-container>
+
+<ng-template #emptyList><p>No item in the list</p></ng-template>
