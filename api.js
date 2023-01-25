@@ -38,7 +38,7 @@ app.post("/tasks", function (req, res) {
 app.delete("/tasks/:index", function (req, res) {
   tasks.splice(req.params.index, 1);
 
-  res.send(tasks);
+  res.send({ response: "success" });
 });
 
 // start the server
