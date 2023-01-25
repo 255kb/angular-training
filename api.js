@@ -42,4 +42,6 @@ app.delete("/tasks/:index", function (req, res) {
 });
 
 // start the server
-app.listen(3000, function () {});
+app.listen(3000, function () {
+  console.log("Hello I am running on http://localhost:3000");
+});
