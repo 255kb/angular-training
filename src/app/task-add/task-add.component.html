@@ -1,34 +1,26 @@
-<form [formGroup]="form" (ngSubmit)="addTask()">
-  <div>
-    <input type="text" formControlName="title" />
-    <p
-      *ngIf="
-        form.get('title')?.touched && form.get('title')?.hasError('required')
-      "
-    >
-      Field is required
-    </p>
-  </div>
-  <div>
-    <input type="text" formControlName="desc" />
-    <p
-      *ngIf="
-        form.get('desc')?.touched && form.get('desc')?.hasError('required')
-      "
-    >
-      Field is required
-    </p>
-  </div>
-  <div>
-    <input type="date" formControlName="date" />
-    <p
-      *ngIf="
-        form.get('date')?.touched && form.get('date')?.hasError('required')
-      "
-    >
-      Field is required
-    </p>
-  </div>
-
-  <button>Add</button>
+<form [formGroup]="form" (submit)="addTask()">
+  <input type="text" formControlName="title" />
+  <p
+    *ngIf="
+      form.get('title')?.touched && form.get('title')?.hasError('required')
+    "
+  >
+    Field is required
+  </p>
+  <input type="text" formControlName="description" />
+  <p
+    *ngIf="
+      form.get('description')?.touched &&
+      form.get('description')?.hasError('required')
+    "
+  >
+    Field is required
+  </p>
+  <input type="date" formControlName="date" />
+  <p
+    *ngIf="form.get('date')?.touched && form.get('date')?.hasError('required')"
+  >
+    Field is required
+  </p>
+  <button type="submit">Add</button>
 </form>

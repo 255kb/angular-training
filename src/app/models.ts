@@ -1,6 +1,6 @@
 export type Task = {
   title: string;
-  desc: string;
+  description: string;
   date: string;
   done: boolean;
 };

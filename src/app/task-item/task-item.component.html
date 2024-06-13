@@ -1,8 +1,16 @@
-<ng-container *ngIf="task">
-  <li [ngStyle]="{ 'text-decoration': task.done ? 'line-through' : '' }">
-    {{ task.title | titlecase }} - {{ task.desc | titlecase }} -
-    {{ task.date | date: 'dd MMM YYYY' }}
-    <button type="button" (click)="markAsDone()">✅</button>
-    <button type="button" (click)="deleteTask()">❌</button>
-  </li>
-</ng-container>
+@if(!!task){
+<li
+  [ngStyle]="{
+    'text-decoration': task.done ? 'line-through' : undefined
+  }"
+>
+  {{ task.title | titlecase }} - {{ task.description | titlecase }} -
+  {{ task.date | date : "dd MMMM" }}
+  <button type="button" (click)="markAsDone()">
+    {{ task.done ? "🔙" : "✅" }}
+  </button>
+  <button type="button" (click)="deleteTask()">
+  ❌
+  </button>
+</li>
+}

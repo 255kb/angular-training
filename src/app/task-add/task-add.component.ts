@@ -1,19 +1,26 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TasksService } from '../tasks.service';
-import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-task-add',
+  standalone: true,
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './task-add.component.html',
-  styleUrls: ['./task-add.component.css'],
+  styleUrl: './task-add.component.css',
 })
 export class TaskAddComponent {
-  public form = this.formBuilder.nonNullable.group({
-    title: ['New task', [Validators.required]],
-    desc: ['', [Validators.required]],
-    date: ['', [Validators.required]],
-    done: [false],
+  form = this.formBuilder.nonNullable.group({
+    title: this.formBuilder.nonNullable.control('New Task', [
+      Validators.required,
+    ]),
+    description: this.formBuilder.nonNullable.control('', [
+      Validators.required,
+    ]),
+    date: this.formBuilder.nonNullable.control('', [Validators.required]),
+    done: this.formBuilder.nonNullable.control(false),
   });
 
   constructor(
@@ -22,11 +29,13 @@ export class TaskAddComponent {
     private formBuilder: FormBuilder
   ) {}
 
-  public addTask() {
-    if (this.form.valid) {
-      this.tasksService.addTask(this.form.getRawValue()).subscribe();
-
-      this.router.navigate(['/']);
+  addTask() {
+    if (this.form.invalid) {
+      return;
     }
+
+    this.tasksService.addTask(this.form.getRawValue()).subscribe();
+
+    this.router.navigate(['/']);
   }
 }

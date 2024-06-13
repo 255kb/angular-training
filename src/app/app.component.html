@@ -1,13 +1,17 @@
 <app-layout>
-  <div>
+  <nav>
     <a
       [routerLink]="['/']"
       routerLinkActive="active-link"
       [routerLinkActiveOptions]="{ exact: true }"
-      >View all tasks</a
+      >Task list</a
     >
-    -
-    <a [routerLink]="['/add']" routerLinkActive="active-link">Add a task</a>
-  </div>
+    <a
+      [routerLink]="['/add']"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Add task</a
+    >
+  </nav>
   <router-outlet></router-outlet>
 </app-layout>

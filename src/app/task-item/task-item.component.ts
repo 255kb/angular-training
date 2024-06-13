@@ -1,28 +1,29 @@
+import { DatePipe, NgFor, NgStyle, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from '../models';
-import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-task-item',
+  standalone: true,
+  imports: [NgStyle, TitleCasePipe, DatePipe],
   templateUrl: './task-item.component.html',
-  styleUrls: ['./task-item.component.css'],
+  styleUrl: './task-item.component.css',
 })
 export class TaskItemComponent {
   @Input()
-  public task: Task | undefined;
+  task!: Task;
 
   @Input()
-  public index: number | undefined;
+  taskIndex!: number;
 
-  @Output() delete = new EventEmitter<number>();
+  @Output()
+  delete: EventEmitter<number> = new EventEmitter<number>();
 
-  public markAsDone() {
-    if (!this.task) return;
-
+  markAsDone() {
     this.task.done = !this.task.done;
   }
 
-  public deleteTask() {
-    this.delete.emit(this.index);
+  deleteTask() {
+    this.delete.emit(this.taskIndex);
   }
 }

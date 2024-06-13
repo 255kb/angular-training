@@ -1,30 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { Task } from '../models';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Task } from '../models';
+import { TaskItemComponent } from '../task-item/task-item.component';
 import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-task-list',
+  standalone: true,
+  imports: [TaskItemComponent, NgFor, NgIf, AsyncPipe],
   templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.css'],
+  styleUrl: './task-list.component.css',
 })
-export class TaskListComponent implements OnInit {
-  public taskList$: Observable<Task[]> | null = null;
+export class TaskListComponent {
+  taskList!: Observable<Task[]>;
 
   constructor(private tasksService: TasksService) {}
 
-  ngOnInit() {
-    this.taskList$ = this.tasksService.getTasks();
+  ngOnInit(): void {
+    this.taskList = this.tasksService.getTasks();
   }
 
-  public deleteTask(index: number) {
-    /* this.tasksService.deleteTask(index).subscribe(() => {
-      this.taskList$ = this.tasksService.getTasks();
-    }); */
-    // OR
-    this.taskList$ = this.tasksService
-      .deleteTask(index)
-      .pipe(switchMap(() => this.tasksService.getTasks()));
+  public deleteTask(taskIndex: number) {
+    this.tasksService.deleteTask(taskIndex).subscribe(() => {
+      this.taskList = this.tasksService.getTasks();
+    });
   }
 }
